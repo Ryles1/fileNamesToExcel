@@ -4,18 +4,23 @@
 
 import openpyxl, os
 
-#TODO: get all filenames in directory in a list
+#let user pick file extension
+
+ext = input('Enter file extension to search: ')
+ext = '.' + ext
+
+# get all filenames in directory in a list
 full_names = os.listdir()
 folder = os.path.basename(os.getcwd())
 wb = openpyxl.Workbook()
 sheet = wb.active
 split_names = []
-#todo: split filenames along hyphen
+#: split filenames along hyphen
 for name in full_names:
-    if name.endswith('.pdf'):
-        temp = name.rstrip('.pdf').split('-')
+    if name.endswith(ext):
+        temp = name.rstrip(ext).split('-')
         split_names.append(temp)
-#todo: put each piece of filename in a cell in a row
+# put each piece of filename in a cell in a row
 for r, row in enumerate(split_names):
     for c, col in enumerate(split_names[r]):
         sheet.cell(column=c+1,row=r+1).value = split_names[r][c]
